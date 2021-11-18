@@ -7,9 +7,15 @@ const route = useRoute();
 
 const {id} = route.params;
 
-const {movie, getMovie} = useAPI();
+const {movie,quotes, getMovie,getQuote} = useAPI();
 
 getMovie(id);
+getQuote(id);
+
+const who = async (id) => {
+  const character = await getCharacter(id);
+  console.log(character.name);
+};
 
 </script>
 
@@ -22,4 +28,13 @@ getMovie(id);
         <p>Academy Wins: {{movie.academyAwardWins}}</p>
       </div>
       <div v-else>Loading.......</div>
-</template>
+      <div class="mt-8">
+    <p
+      class="px-6 py-8 my-4 text-lg italic text-center bg-white rounded-md"
+      v-for="quote in quotes"
+      :key="quote._id"
+    >
+      {{ quote.dialog }}
+    </p>
+  </div>
+      </template>
